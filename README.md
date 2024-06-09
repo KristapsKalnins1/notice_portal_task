@@ -23,6 +23,8 @@ it will run tests in `e2e` folder):**
 
 ```
 npx playwright test
+
+npx playwright test --ui
 ```
 
 **4. Generate Allure report:**

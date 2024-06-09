@@ -40,7 +40,7 @@ export class CreateNewNoticePage {
   }
 
   async clickSave() {
-    await this.saveButton.click({force: true});
+    await this.saveButton.click();
   }
 
   async waitForLoadingIndicator() {

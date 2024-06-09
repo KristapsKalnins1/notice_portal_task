@@ -1,46 +1,36 @@
 // create_new_notice_page.ts
 import { Locator, Page } from '@playwright/test';
+import { LoadFnOutput } from 'module';
 
 export class HomePage {
-  readonly page: Page;
-  readonly titleInput: Locator;
-  readonly targetDateInput: Locator;
-  readonly textInput: Locator;
-  readonly saveButton: Locator;
+  readonly menuHomeButton: Locator;
+  readonly menuCreateButton: Locator;
   readonly loadingIndicator: Locator;
   readonly successMessage: Locator;
-  readonly menuHomeButton: Locator;
+  readonly deleteNoticeButton: Locator;
+  readonly lastPageButton: Locator;
+  readonly firstNoticeTitle: Locator;
 
   constructor(page: Page) {
-    this.page = page;
-    this.titleInput = page.locator('#title');
-    this.targetDateInput = page.locator('#target-date');
-    this.textInput = page.locator('#text');
-    this.saveButton = page.locator('p-button#save-button button');
+    this.menuHomeButton = page.locator('#menu-home');
+    this.deleteNoticeButton = page.locator('#row-0-delete-button');
+    this.menuCreateButton = page.locator('#menu-create');
     this.loadingIndicator = page.locator('div[aria-busy="true"]');
     this.successMessage = page.locator('.p-toast-summary');
+    this.lastPageButton = page.locator('button.p-paginator-last');
+    this.firstNoticeTitle = page.locator('#row-0-title');
   }
 
-  async navigate() {
-    await this.page.goto('/create');
+  async clickMenuHome() {
+    await this.menuHomeButton.click();
   }
 
-  async enterTitle(title: string) {
-    await this.titleInput.fill(title);
+  async clickMenuCreate() {
+    await this.menuCreateButton.click();
   }
 
-  async enterTargetDate(targetDate: string) {
-    await this.targetDateInput.fill(targetDate);
-    await this.targetDateInput.press('Enter');
-  }
-
-  async enterText(text: string) {
-    await this.textInput.fill(text);
-    await this.page.waitForTimeout(100);
-  }
-
-  async clickSave() {
-    await this.saveButton.click({force: true});
+  async clickDelete() {
+    await this.deleteNoticeButton.click();
   }
 
   async waitForLoadingIndicator() {
@@ -58,4 +48,10 @@ export class HomePage {
   async getSuccessMessageText() {
     return await this.successMessage.textContent();
   }
+
+  async getFirstTitleText() {
+    return await this.firstNoticeTitle.textContent();
+  }
+
+
 }

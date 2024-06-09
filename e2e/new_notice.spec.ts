@@ -5,8 +5,8 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/');
 });
 
-test('Create new notice', async ({ page, createNewNoticePage}) => {
-  await page.goto('/create');
+test('Create new notice', async ({ page, homePage, createNewNoticePage}) => {
+  await homePage.clickMenuCreate();
   await createNewNoticePage.enterTitle('Test notice');
   await createNewNoticePage.enterTargetDate('20.06.2024');
   await createNewNoticePage.enterText('This is a test notice!');
